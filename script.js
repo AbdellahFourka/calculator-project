@@ -11,7 +11,7 @@ const graphElement = document.getElementById('graph');
 
 // Function to append characters to the display
 function appendToDisplay(character) {
-    if (displayElement.innerText === '0') {
+    if (displayElement.innerText === '0' || displayElement.innerText === 'Error') {
         displayElement.innerText = character;
     } else {
         displayElement.innerText += character;
@@ -21,21 +21,20 @@ function appendToDisplay(character) {
 // Function to calculate and display the result
 function calculate() {
     try {
-        let expression = displayElement.innerText.replace('^', '**').replace('!', 'factorial');
-        
-        // Debugging: Log the expression being evaluated
-        console.log('Evaluating:', expression);
+        let expression = displayElement.innerText
+            .replace('^', '**')          // Replace ^ with ** for power
+            .replace(/√/g, 'sqrt')       // Replace √ with sqrt for square root
+            .replace('×', '*')           // Replace × with *
+            .replace('÷', '/')           // Replace ÷ with /
+            .replace('!', 'factorial');  // Replace ! with factorial
 
-        // Using math.js for evaluation
+        // Evaluate the expression using math.js
         let result = math.evaluate(expression);
         
-        // Debugging: Log the result
-        console.log('Result:', result);
-
+        // Update the history
         updateHistory(displayElement.innerText + ' = ' + result);
         displayElement.innerText = result;
     } catch (error) {
-        console.error('Error evaluating expression:', error);
         displayElement.innerText = 'Error';
     }
 }
@@ -70,7 +69,7 @@ function storeMemory() {
 
 // Function to recall the stored memory value
 function recallMemory() {
-    appendToDisplay(memory);
+    appendToDisplay(memory.toString());
 }
 
 // Function to clear the memory
@@ -183,7 +182,7 @@ document.addEventListener('DOMContentLoaded', loadSettings);
 // Attach event listeners to buttons
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', (e) => {
-        const value = e.target.id;
+        const value = e.target.getAttribute('data-value');
         switch (value) {
             case 'clear':
                 clearDisplay();
@@ -198,13 +197,7 @@ document.querySelectorAll('.btn').forEach(button => {
                 voiceInput();
                 break;
             default:
-                if (value === 'sqrt') {
-                    appendToDisplay('sqrt(');
-                } else if (value === 'fact') {
-                    appendToDisplay('!');
-                } else {
-                    appendToDisplay(value);
-                }
+                appendToDisplay(value);
                 break;
         }
     });
