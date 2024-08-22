@@ -4,8 +4,8 @@ let currentTheme = 'dark';
 
 // DOM Elements
 const displayElement = document.getElementById('display');
-const historyLogElement = document.getElementById('history-list'); // Updated ID to match HTML
-const themeSwitch = document.getElementById('theme-toggle'); // Updated ID to match HTML
+const historyLogElement = document.getElementById('history-list'); // Updated ID
+const themeSwitch = document.getElementById('theme-toggle'); // Updated ID
 const graphContainer = document.getElementById('graph-container');
 const graphElement = document.getElementById('graph');
 
@@ -170,28 +170,32 @@ function voiceInput() {
 // Load settings on page load
 document.addEventListener('DOMContentLoaded', loadSettings);
 
-// Keyboard support for enhanced input handling
-document.addEventListener('keydown', (event) => {
-    const key = event.key;
-    if (key >= '0' && key <= '9') {
-        appendToDisplay(key);
-    } else if (['+', '-', '*', '/'].includes(key)) {
-        appendToDisplay(key);
-    } else if (key === 'Enter' || key === '=') {
-        calculate();
-    } else if (key === 'Backspace') {
-        backspace();
-    } else if (key === 'Escape') {
-        clearDisplay();
-    } else if (key === 's') {
-        switchMode('scientific');
-    } else if (key === 'b') {
-        switchMode('basic');
-    } else if (key === 'p') {
-        switchMode('programming');
-    } else if (key === 'g') {
-        switchMode('graphing');
-    } else if (key === 'c') {
-        switchMode('unit-conversion');
-    }
+// Attach event listeners to buttons
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const value = e.target.id;
+        switch (value) {
+            case 'clear':
+                clearDisplay();
+                break;
+            case 'backspace':
+                backspace();
+                break;
+            case 'equals':
+                calculate();
+                break;
+            case 'voice':
+                voiceInput();
+                break;
+            default:
+                if (value === 'sqrt') {
+                    appendToDisplay('sqrt(');
+                } else if (value === 'fact') {
+                    appendToDisplay('!');
+                } else {
+                    appendToDisplay(value);
+                }
+                break;
+        }
+    });
 });
