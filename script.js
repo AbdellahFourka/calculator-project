@@ -4,8 +4,8 @@ let currentTheme = 'dark';
 
 // DOM Elements
 const displayElement = document.getElementById('display');
-const historyLogElement = document.getElementById('history-list'); // Updated ID
-const themeSwitch = document.getElementById('theme-toggle'); // Updated ID
+const historyLogElement = document.getElementById('history-list');
+const themeSwitch = document.getElementById('theme-toggle');
 const graphContainer = document.getElementById('graph-container');
 const graphElement = document.getElementById('graph');
 
@@ -22,16 +22,13 @@ function appendToDisplay(character) {
 function calculate() {
     try {
         let expression = displayElement.innerText
-            .replace('^', '**')          // Replace ^ with ** for power
-            .replace(/√/g, 'sqrt')       // Replace √ with sqrt for square root
-            .replace('×', '*')           // Replace × with *
-            .replace('÷', '/')           // Replace ÷ with /
-            .replace('!', 'factorial');  // Replace ! with factorial
+            .replace('^', '**')
+            .replace(/√/g, 'sqrt')
+            .replace('×', '*')
+            .replace('÷', '/')
+            .replace('!', 'factorial');
 
-        // Evaluate the expression using math.js
         let result = math.evaluate(expression);
-        
-        // Update the history
         updateHistory(displayElement.innerText + ' = ' + result);
         displayElement.innerText = result;
     } catch (error) {
@@ -108,10 +105,10 @@ function showGraph() {
     const chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: Array.from({length: 101}, (_, i) => i - 50),
+            labels: Array.from({ length: 101 }, (_, i) => i - 50),
             datasets: [{
                 label: 'f(x)',
-                data: Array.from({length: 101}, (_, i) => {
+                data: Array.from({ length: 101 }, (_, i) => {
                     try {
                         return math.evaluate(displayElement.innerText.replace('x', (i - 50)));
                     } catch {
@@ -183,22 +180,24 @@ document.addEventListener('DOMContentLoaded', loadSettings);
 document.querySelectorAll('.btn').forEach(button => {
     button.addEventListener('click', (e) => {
         const value = e.target.getAttribute('data-value');
-        switch (value) {
-            case 'clear':
-                clearDisplay();
-                break;
-            case 'backspace':
-                backspace();
-                break;
-            case 'equals':
-                calculate();
-                break;
-            case 'voice':
-                voiceInput();
-                break;
-            default:
-                appendToDisplay(value);
-                break;
+        if (value !== null) {
+            switch (value) {
+                case 'clear':
+                    clearDisplay();
+                    break;
+                case 'backspace':
+                    backspace();
+                    break;
+                case 'equals':
+                    calculate();
+                    break;
+                case 'voice':
+                    voiceInput();
+                    break;
+                default:
+                    appendToDisplay(value);
+                    break;
+            }
         }
     });
 });
