@@ -4,8 +4,8 @@ let currentTheme = 'dark';
 
 // DOM Elements
 const displayElement = document.getElementById('display');
-const historyLogElement = document.getElementById('history-log');
-const themeSwitch = document.getElementById('theme-switch');
+const historyLogElement = document.getElementById('history-list'); // Updated ID to match HTML
+const themeSwitch = document.getElementById('theme-toggle'); // Updated ID to match HTML
 const graphContainer = document.getElementById('graph-container');
 const graphElement = document.getElementById('graph');
 
@@ -38,10 +38,7 @@ function factorial(n) {
 
 // Function to handle backspace
 function backspace() {
-    displayElement.innerText = displayElement.innerText.slice(0, -1);
-    if (displayElement.innerText === '') {
-        displayElement.innerText = '0';
-    }
+    displayElement.innerText = displayElement.innerText.slice(0, -1) || '0';
 }
 
 // Function to clear the display
@@ -72,7 +69,7 @@ function clearMemory() {
 }
 
 // Function to switch themes
-themeSwitch.addEventListener('change', () => {
+themeSwitch.addEventListener('click', () => {
     document.body.classList.toggle('light-theme');
     currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
     saveSettings();
@@ -82,24 +79,13 @@ themeSwitch.addEventListener('change', () => {
 function switchMode(mode) {
     switch (mode) {
         case 'basic':
-            hideGraph();
-            // Additional basic calculator mode settings
-            break;
         case 'scientific':
-            hideGraph();
-            // Additional scientific calculator mode settings
-            break;
         case 'programming':
+        case 'unit-conversion':
             hideGraph();
-            // Additional programming mode settings (e.g., binary, hex support)
             break;
         case 'graphing':
             showGraph();
-            // Initialize graphing mode
-            break;
-        case 'unit-conversion':
-            hideGraph();
-            // Initialize unit conversion mode
             break;
         default:
             break;
@@ -109,7 +95,6 @@ function switchMode(mode) {
 // Function to display the graphing container
 function showGraph() {
     graphContainer.classList.remove('hidden');
-    // Initialize graph plotting using Chart.js
     const ctx = graphElement.getContext('2d');
     const chart = new Chart(ctx, {
         type: 'line',
@@ -117,7 +102,13 @@ function showGraph() {
             labels: Array.from({length: 101}, (_, i) => i - 50),
             datasets: [{
                 label: 'f(x)',
-                data: Array.from({length: 101}, (_, i) => math.evaluate(displayElement.innerText.replace('x', (i - 50)))),
+                data: Array.from({length: 101}, (_, i) => {
+                    try {
+                        return math.evaluate(displayElement.innerText.replace('x', (i - 50)));
+                    } catch {
+                        return null;
+                    }
+                }),
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
                 fill: false
@@ -155,22 +146,22 @@ function loadSettings() {
     }
 }
 
-// Function to handle voice input (requires additional setup and API)
+// Function to handle voice input
 function voiceInput() {
     if (!('webkitSpeechRecognition' in window)) {
         alert('Your browser does not support voice recognition. Please use a modern browser.');
         return;
     }
-    
+
     const recognition = new webkitSpeechRecognition();
     recognition.lang = 'en-US';
     recognition.start();
-    
+
     recognition.onresult = function(event) {
         let spokenText = event.results[0][0].transcript;
         appendToDisplay(spokenText);
     };
-    
+
     recognition.onerror = function(event) {
         alert('Error occurred in recognition: ' + event.error);
     };
