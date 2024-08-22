@@ -11,12 +11,14 @@ body {
 }
 
 .calculator {
-    width: 360px;
+    width: 100%;
+    max-width: 360px;
     background-color: var(--calculator-bg);
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     padding: 10px;
+    box-sizing: border-box;
 }
 
 .theme-toggle {
@@ -38,7 +40,6 @@ body {
 
 .buttons, .extra-functions, .memory-buttons {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     padding: 10px;
 }
@@ -130,3 +131,34 @@ body {
     --button-hover-bg: #c2c2c2;
     --button-active-bg: #b0b0b0;
 }
+
+/* Media Queries for Responsive Design */
+
+/* Desktop View */
+@media (min-width: 768px) {
+    .calculator {
+        width: 360px;
+    }
+}
+
+/* Mobile View */
+@media (max-width: 767px) {
+    .calculator {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .display {
+        font-size: 1.5em;
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 1em;
+    }
+
+    .btn-zero {
+        grid-column: span 3;
+    }
+    }
