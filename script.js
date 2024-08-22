@@ -22,10 +22,20 @@ function appendToDisplay(character) {
 function calculate() {
     try {
         let expression = displayElement.innerText.replace('^', '**').replace('!', 'factorial');
+        
+        // Debugging: Log the expression being evaluated
+        console.log('Evaluating:', expression);
+
+        // Using math.js for evaluation
         let result = math.evaluate(expression);
+        
+        // Debugging: Log the result
+        console.log('Result:', result);
+
         updateHistory(displayElement.innerText + ' = ' + result);
         displayElement.innerText = result;
     } catch (error) {
+        console.error('Error evaluating expression:', error);
         displayElement.innerText = 'Error';
     }
 }
