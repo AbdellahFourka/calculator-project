@@ -12,10 +12,10 @@ body {
 
 .calculator {
     width: 100%;
-    max-width: 360px;
+    max-width: 320px; /* Reduced maximum width for a more compact design */
     background-color: var(--calculator-bg);
     border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Adjusted box-shadow */
     overflow: hidden;
     padding: 10px;
     box-sizing: border-box;
@@ -30,9 +30,9 @@ body {
 .display {
     background-color: var(--display-bg);
     color: var(--display-color);
-    font-size: 2.2em;
+    font-size: 1.8em; /* Adjusted font-size for a more compact look */
     text-align: right;
-    padding: 20px;
+    padding: 15px; /* Adjusted padding */
     box-sizing: border-box;
     border-radius: 10px;
     border-bottom: 2px solid var(--calculator-bg);
@@ -40,8 +40,8 @@ body {
 
 .buttons, .extra-functions, .memory-buttons {
     display: grid;
-    gap: 10px;
-    padding: 10px;
+    gap: 8px; /* Reduced gap */
+    padding: 5px; /* Reduced padding */
 }
 
 .memory-buttons {
@@ -50,7 +50,7 @@ body {
 
 .history {
     margin-top: 15px;
-    padding: 10px;
+    padding: 5px; /* Reduced padding */
     background-color: var(--display-bg);
     border-radius: 10px;
     color: var(--display-color);
@@ -65,7 +65,7 @@ body {
 .history ul {
     list-style-type: none;
     padding: 0;
-    max-height: 100px;
+    max-height: 80px; /* Reduced max-height */
     overflow-y: auto;
 }
 
@@ -76,8 +76,8 @@ body {
 .btn {
     background-color: var(--button-bg);
     border: none;
-    padding: 15px;
-    font-size: 1.2em;
+    padding: 12px; /* Adjusted padding */
+    font-size: 1em; /* Adjusted font-size */
     color: var(--button-color);
     cursor: pointer;
     transition: background-color 0.2s, box-shadow 0.2s;
@@ -137,7 +137,7 @@ body {
 /* Desktop View */
 @media (min-width: 768px) {
     .calculator {
-        width: 360px;
+        max-width: 320px; /* Keep the maximum width compact */
     }
 }
 
@@ -150,15 +150,15 @@ body {
 
     .display {
         font-size: 1.5em;
-        padding: 15px;
+        padding: 10px;
     }
 
     .btn {
-        padding: 12px;
-        font-size: 1em;
+        padding: 10px;
+        font-size: 0.9em;
     }
 
     .btn-zero {
         grid-column: span 3;
     }
-    }
+        }
