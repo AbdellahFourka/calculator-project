@@ -11,58 +11,49 @@
 <body>
     <div class="calculator">
         <div class="theme-toggle">
-            <label>
-                <input type="checkbox" id="theme-switch">
-                Dark Mode
-            </label>
+            <button class="btn" id="theme-toggle">Toggle Theme</button>
         </div>
         <div class="display" id="display">0</div>
         <div class="buttons">
-            <button class="btn" onclick="clearDisplay()">C</button>
-            <button class="btn" onclick="backspace()">⌫</button>
-            <button class="btn" onclick="appendToDisplay('(')">(</button>
-            <button class="btn" onclick="appendToDisplay(')')">)</button>
-            <button class="btn" onclick="appendToDisplay('sin(')">sin</button>
-            <button class="btn" onclick="appendToDisplay('cos(')">cos</button>
-            <button class="btn" onclick="appendToDisplay('tan(')">tan</button>
-            <button class="btn" onclick="appendToDisplay('log(')">log</button>
-            <button class="btn" onclick="appendToDisplay('ln(')">ln</button>
-            <button class="btn" onclick="appendToDisplay('sqrt(')">√</button>
-            <button class="btn" onclick="appendToDisplay('^')">^</button>
-            <button class="btn" onclick="appendToDisplay('!')">n!</button>
-            <button class="btn" onclick="appendToDisplay('7')">7</button>
-            <button class="btn" onclick="appendToDisplay('8')">8</button>
-            <button class="btn" onclick="appendToDisplay('9')">9</button>
-            <button class="btn" onclick="appendToDisplay('/')">/</button>
-            <button class="btn" onclick="appendToDisplay('4')">4</button>
-            <button class="btn" onclick="appendToDisplay('5')">5</button>
-            <button class="btn" onclick="appendToDisplay('6')">6</button>
-            <button class="btn" onclick="appendToDisplay('*')">*</button>
-            <button class="btn" onclick="appendToDisplay('1')">1</button>
-            <button class="btn" onclick="appendToDisplay('2')">2</button>
-            <button class="btn" onclick="appendToDisplay('3')">3</button>
-            <button class="btn" onclick="appendToDisplay('-')">-</button>
-            <button class="btn btn-zero" onclick="appendToDisplay('0')">0</button>
-            <button class="btn" onclick="appendToDisplay('.')">.</button>
-            <button class="btn" onclick="appendToDisplay('+')">+</button>
-            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn" id="clear">C</button>
+            <button class="btn" id="backspace">←</button>
+            <button class="btn" id="sqrt">√</button>
+            <button class="btn" id="divide">/</button>
+            <button class="btn" id="7">7</button>
+            <button class="btn" id="8">8</button>
+            <button class="btn" id="9">9</button>
+            <button class="btn" id="multiply">*</button>
+            <button class="btn" id="4">4</button>
+            <button class="btn" id="5">5</button>
+            <button class="btn" id="6">6</button>
+            <button class="btn" id="minus">-</button>
+            <button class="btn" id="1">1</button>
+            <button class="btn" id="2">2</button>
+            <button class="btn" id="3">3</button>
+            <button class="btn" id="plus">+</button>
+            <button class="btn btn-zero" id="0">0</button>
+            <button class="btn" id="decimal">.</button>
+            <button class="btn" id="equals">=</button>
         </div>
-        <div class="extra-functions">
-            <button class="btn" onclick="switchMode('basic')">Basic</button>
-            <button class="btn" onclick="switchMode('scientific')">Scientific</button>
-            <button class="btn" onclick="switchMode('programming')">Programming</button>
-            <button class="btn" onclick="switchMode('graphing')">Graphing</button>
-            <button class="btn" onclick="switchMode('unit-conversion')">Convert</button>
-            <button class="btn" onclick="voiceInput()">🎤</button>
+        <div class="extra-functions hidden" id="extra-functions">
+            <button class="btn" id="sin">sin</button>
+            <button class="btn" id="cos">cos</button>
+            <button class="btn" id="tan">tan</button>
+            <button class="btn" id="log">log</button>
+            <button class="btn" id="exp">exp</button>
+            <button class="btn" id="fact">fact</button>
         </div>
-        <div class="memory-buttons">
-            <button class="btn" onclick="storeMemory()">M+</button>
-            <button class="btn" onclick="recallMemory()">MR</button>
-            <button class="btn" onclick="clearMemory()">MC</button>
+        <div class="memory-buttons hidden" id="memory-buttons">
+            <button class="btn" id="memory-clear">MC</button>
+            <button class="btn" id="memory-recall">MR</button>
+            <button class="btn" id="memory-store">MS</button>
+            <button class="btn" id="memory-add">M+</button>
         </div>
-        <div class="history">
+        <div class="history" id="history">
             <h4>History</h4>
-            <ul id="history-log"></ul>
+            <ul id="history-list">
+                <!-- History items will appear here -->
+            </ul>
         </div>
         <div id="graph-container" class="hidden">
             <canvas id="graph"></canvas>
@@ -70,4 +61,4 @@
     </div>
     <script src="script.js"></script>
 </body>
-              </html>
+                </html>
